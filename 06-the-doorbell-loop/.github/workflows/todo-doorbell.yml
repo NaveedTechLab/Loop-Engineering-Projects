@@ -1,0 +1,43 @@
+name: TODO Doorbell
+
+# Fires on every pull request event — nothing runs until a PR is opened
+# or updated. This is the event-driven heartbeat (Concept 7): zero cost
+# on a quiet day, reacts the instant something happens.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  scan-for-new-todos:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # fetch full history so the diff against the base branch is
+          # available — needed to tell "new" TODOs from ones that already
+          # existed before this PR
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+          prompt: |
+            Look at the diff this pull request introduces, compared to its
+            base branch. Find every line that ADDS a new "TODO" or "FIXME"
+            comment (in any language's comment syntax) that did not exist
+            before this PR.
+
+            For each new TODO/FIXME found, post a single PR review comment
+            listing: the file, the line, and the TODO/FIXME text.
+
+            If no new TODO or FIXME comments were introduced, post one
+            short comment saying so plainly — that is a successful result,
+            not a failure to find something.
+
+            Do not comment on TODOs that already existed in the base
+            branch before this PR. Only flag NEW ones this PR adds.
