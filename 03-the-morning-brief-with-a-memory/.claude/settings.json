@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/morning-brief/scripts/brief.py)",
+      "Skill(morning-brief)",
+      "WebFetch(domain:hacker-news.firebaseio.com)"
+    ]
+  }
+}
