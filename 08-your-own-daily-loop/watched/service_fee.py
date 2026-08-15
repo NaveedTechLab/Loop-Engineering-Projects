@@ -18,4 +18,4 @@ def calculate_late_fee(days_late: int, daily_rate: float = 5.0) -> float:
     """
     if days_late <= 0:
         return 0.0
-    return days_late * daily_rate
+    return min(days_late, 10) * daily_rate
