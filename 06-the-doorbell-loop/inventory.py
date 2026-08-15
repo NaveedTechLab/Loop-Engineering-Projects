@@ -15,3 +15,5 @@ def calculate_reorder_point(daily_usage: float, lead_time_days: int) -> float:
 def is_low_stock(current_stock: int, reorder_point: float) -> bool:
     """True if stock has fallen to or below the reorder point."""
     return current_stock <= reorder_point
+
+# TODO: add support for multiple warehouses
