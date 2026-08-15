@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 .claude/skills/rate-watch/scripts/rate.py)",
+      "Skill(rate-watch)",
+      "WebFetch(domain:open.er-api.com)"
+    ]
+  }
+}
