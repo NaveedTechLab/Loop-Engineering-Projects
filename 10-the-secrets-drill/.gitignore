@@ -1,0 +1,3 @@
+# This is the whole point of this drill: .env is gitignored, so it never
+# reaches GitHub, so a Routine's cloud clone never has it either.
+.env
